@@ -1,17 +1,27 @@
-# tradingview-volume-indicator
-This repository contains a Pine Script code for a TradingView indicator that calculates and visualizes the cumulative volume over a configurable number of candles.
+# Volume Sum Indicator (Pine Script v5)
 
-This repository contains a Pine Script indicator for TradingView. 
+This Pine Script indicator calculates the total volume for a specified number of candles, considering:
+- **Positive volume:** Added for bullish candles (close > open).
+- **Negative volume:** Subtracted for bearish candles (close < open).
+- **Neutral volume:** No change for neutral candles (close == open).
 
 ## Features
-- Calculates cumulative volume over a configurable number of candles.
-- Supports different market types: Crypto, Forex, and Stocks.
-- Displays the calculated value as a bar chart with precise labeling.
+- **Customizable Candle Range:** Specify the number of candles to calculate the total volume using the `Mum Sayısı` input.
+- **Dynamic Visualization:** The total volume is displayed as a line on a separate panel with a zero baseline.
+- **Support for Various Assets:** Works with any asset on TradingView.
 
-## How to Use
-1. Copy the provided Pine Script code.
-2. Paste it into the Pine Editor in TradingView.
-3. Add the indicator to your chart and configure it as needed.
+## Formula
+- **Bullish Candle:** `Total Volume += Volume`
+- **Bearish Candle:** `Total Volume -= Volume`
+- **Neutral Candle:** `Total Volume = Unchanged`
 
-## License
-This project is open-source and available under the MIT License.
+## Usage
+1. Copy the code from `volume_sum_indicator.pine`.
+2. Open TradingView and navigate to the Pine Script Editor.
+3. Paste the code, save, and add it to your chart.
+
+---
+
+## Sample Output
+- **Blue Line:** Displays the cumulative volume difference for the specified candles.
+- **Dashed Zero Line:** Highlights the neutral point.
