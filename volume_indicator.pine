@@ -1,0 +1,22 @@
+//@version=5
+indicator("Hacim Toplamı (Lot Cinsinden)", overlay=false)
+
+// Configurable number of candles
+num_candles = input.int(60, title="Number of Candles", minval=1)
+
+// Market type input
+market_type = input.string("Crypto", options=["Crypto", "Forex", "Stocks"], title="Market Type")
+
+// Calculate cumulative volume
+cumulative_volume = 0.0
+for i = 0 to num_candles - 1
+    cumulative_volume := cumulative_volume + (close[i] > open[i] ? volume[i] : -volume[i])
+
+// Adjust for market type
+result = market_type == "Forex" ? cumulative_volume : cumulative_volume / close
+
+// Plot the result
+plot(result, color=color.blue, linewidth=2, title="Cumulative Volume (Lot)")
+
+// Add a zero line
+hline(0, "Zero Line", color=color.gray, linestyle=hline.style_dashed)
