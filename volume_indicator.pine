@@ -1,19 +1,25 @@
 //@version=5
-indicator("Hacim Toplamı", overlay=false)
+indicator("Volume Sum", overlay=false)
 
-mum_sayisi = input.int(60, title="Mum Sayısı", minval=1)
+// Input for adjustable candle count
+candle_count = input.int(60, title="Number of Candles", minval=1)
 
-hacim_toplam = 0.0
-for i = 0 to mum_sayisi - 1
+// Calculate the cumulative volume of past candles
+volume_sum = 0.0
+for i = 0 to candle_count - 1
+    // Add positive volume for green candles, subtract for red candles
     if close[i] > open[i]
-        hacim_toplam := hacim_toplam + volume[i]
+        volume_sum := volume_sum + volume[i]
     else if close[i] < open[i]
-        hacim_toplam := hacim_toplam - volume[i]
+        volume_sum := volume_sum - volume[i]
     else
-        hacim_toplam := hacim_toplam
+        volume_sum := volume_sum  // No change for neutral candles
 
-hesaplanan_deger = hacim_toplam
+// Calculate the total volume value
+calculated_value = volume_sum
 
-plot(hesaplanan_deger, color=color.new(color.blue, 0), linewidth=2, title="Hacim Toplamı")
+// Display the calculated value on the indicator panel
+plot(calculated_value, color=color.new(color.blue, 0), linewidth=2, title="Volume Sum (Lots)")
 
-hline(0, "Sıfır Çizgisi", color=color.gray, linestyle=hline.style_dashed)
+// Add a zero baseline
+hline(0, "Zero Line", color=color.gray, linestyle=hline.style_dashed)
